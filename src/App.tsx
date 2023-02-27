@@ -21,6 +21,9 @@ export default function App (): JSX.Element {
   }
   return (
     <div>
+      <h1 className="text-3xl font-bold underline">
+        Bem-vindo a Pokedex
+      </h1>
       {pokemons.map(pokemon => (
         <ul key={pokemon.number}>
           <li>{pokemon.name}</li>
