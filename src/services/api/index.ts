@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { type IPokemon, type IPokemonCharacter, type IPokemonsLinks } from './interfaces'
+import { IPokemon, IPokemonCharacter, IPokemonsLinks } from './interfaces'
 const api = axios.create({
   baseURL: 'https://pokeapi.co/api/v2'
 })
 
-export async function getPokemons (): Promise<IPokemonsLinks[]> {
-  const pokemons = await api.get('/pokemon?limit=20')
-  console.log(pokemons.data.results)
+export async function getPokemons (limit = 50, offset = 0): Promise<IPokemonsLinks[]> {
+  const pokemons = await api.get(`/pokemon?limit=${limit}&offset=${offset}`)
+  // console.log(pokemons.data.results)
   return pokemons.data.results
 }
 export async function getPokemonDetails (pokemonList: IPokemonsLinks[]): Promise<IPokemon[]> {

@@ -19,7 +19,6 @@ export interface IPokemonCharacter {
   species: {
     url: string
   }
-
 }
 
 export interface IPokemon {
