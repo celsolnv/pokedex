@@ -1,6 +1,12 @@
-export interface IPokemonsLinks {
-  name: string
+export interface IPokemonPrevious {
   url: string
+  name: string
+}
+export interface IPokemonsLinks {
+  count: number
+  results: [
+    IPokemonPrevious
+  ]
 }
 
 export interface IPokemonCharacter {
@@ -19,6 +25,13 @@ export interface IPokemonCharacter {
   species: {
     url: string
   }
+  types: [
+    slot:number,
+    type:{
+      name: string
+      url: string
+    }
+  ]
 }
 
 export interface IPokemon {
@@ -28,5 +41,10 @@ export interface IPokemon {
   weight: number
   height: number
   baseExp: number
-  description: string
+  types: [
+    slot:number,
+    type:{
+      name: string
+      url: string
+    }]
 }

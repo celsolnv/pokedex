@@ -3,21 +3,25 @@ import { useState } from 'react'
 import { getPokemons } from '../services/api'
 
 interface IUsePokemonReturn {
-  fetchPokemon: (p: number) => void
-  pokemon: IPokemonsLinks[]
+  fetchPokemon: (page: number) => Promise<IPokemonsLinks>
+  pokemon: IPokemonsLinks
 }
 
 export function usePokemon (pageLimit: number): IUsePokemonReturn {
-  const [pokemon, setPokemon] = useState([] as IPokemonsLinks[])
+  const [pokemon, setPokemon] = useState<IPokemonsLinks>({ count: 0, results: [{ name: '', url: '' }] })
 
-  function fetchPokemon (page: number): void {
+  async function fetchPokemon (page: number): Promise<IPokemonsLinks> {
     // TODO: COMENTAR ESSA FORMULA
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    const virtualPage = ((page - 1) * pageLimit) ? 0 : (page - 1) * pageLimit
+    const virtualPage = ((page - 1) * pageLimit) ? (page - 1) * pageLimit : 0
 
-    const pokemons = getPokemons(pageLimit, virtualPage)
+    console.log(page, virtualPage)
 
-    pokemons.then(response => { setPokemon(response) }).catch(() => { console.log('Deu ruim ') })
+    const pokemons = await getPokemons(pageLimit, virtualPage)
+
+    setPokemon(pokemons)
+
+    return pokemons
   }
 
   return {
