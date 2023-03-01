@@ -7,7 +7,10 @@ interface IPokemonCardProps {
 
 export function PokemonCard ({ pokemon }: IPokemonCardProps): JSX.Element {
   const typePokemon = pokemon.types[0].type.name
-  const backgroundColor = themeTypePokemon[typePokemon]
+  let backgroundColor = themeTypePokemon[typePokemon]
+  if (!backgroundColor) {
+    backgroundColor = '#797979'
+  }
 
   return (
     <div className="card-container" style={{ backgroundColor }} >
@@ -16,11 +19,13 @@ export function PokemonCard ({ pokemon }: IPokemonCardProps): JSX.Element {
         <p className="font-bold capitalize mb-1">
             {pokemon.name}
         </p>
-        <div>
+        <div className=''>
             {
               pokemon.types.map((type, index) => (
-                <div key={index} className="type-pokemon capitalize ">
-                  <p >{type.type.name}</p>
+                <div key={index}>
+                  <div className="type-pokemon capitalize ">
+                    <p >{type.type.name}</p>
+                  </div>
                 </div>
               ))
             }

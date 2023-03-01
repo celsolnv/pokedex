@@ -48,21 +48,22 @@
 }
 
 .pokeball ellipse{
-  filter:brightness(1.2) ;
+  filter:brightness(0.95) ;
 }
+
 
 .type-pokemon{
   background-color: inherit;
-  backdrop-filter:brightness(1.2) ;
-  padding:1px;
+  backdrop-filter:brightness(0.9) ;
+  padding:2px;
   border-radius: 10px;
   margin-bottom: 5px;
   
-  width: 70%;
+  /* width: 70%; */
 
   font-size: 0.5rem;
   
-  display: flex;
+  display: inline-flex;
   justify-content: center;
 }
 
