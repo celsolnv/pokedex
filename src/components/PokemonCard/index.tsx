@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { IPokemon } from '../../services/api/interfaces'
 import './style.css'
 import { themeTypePokemon } from './theme'
@@ -6,6 +7,7 @@ interface IPokemonCardProps {
 }
 
 export function PokemonCard ({ pokemon }: IPokemonCardProps): JSX.Element {
+  const navigate = useNavigate()
   const typePokemon = pokemon.types[0].type.name
   let backgroundColor = themeTypePokemon[typePokemon]
   if (!backgroundColor) {
@@ -13,17 +15,17 @@ export function PokemonCard ({ pokemon }: IPokemonCardProps): JSX.Element {
   }
 
   return (
-    <div className="card-container" style={{ backgroundColor }} >
+    <div className="card-container" style={{ backgroundColor }} onClick={() => { navigate('/pokemon') }} >
 
       <div className="description">
         <p className="font-bold capitalize mb-1">
             {pokemon.name}
         </p>
-        <div className=''>
+        <div>
             {
               pokemon.types.map((type, index) => (
                 <div key={index}>
-                  <div className="type-pokemon capitalize ">
+                  <div className=" type-pokemon capitalize ">
                     <p >{type.type.name}</p>
                   </div>
                 </div>
