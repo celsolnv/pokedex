@@ -42,9 +42,10 @@ export interface IPokemon {
   height: number
   baseExp: number
   types: [
-    slot:number,
-    type:{
-      name: string
-      url: string
-    }]
+    { slot: number
+      type: {
+        name: string
+        url: string
+      } }
+  ]
 }

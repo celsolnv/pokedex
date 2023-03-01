@@ -17,7 +17,7 @@ export function Pagination ({ amountPages, pageLimit }: IPaginationParams): JSX.
   }, [currentPage])
 
   return (
-    <nav aria-label="Page navigation example">
+    <nav aria-label="Page navigation example" className='footer'>
       <ul className="inline-flex -space-x-px">
 
         {
