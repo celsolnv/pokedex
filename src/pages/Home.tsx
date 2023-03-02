@@ -8,7 +8,7 @@ import { getPokemonDetails } from '../services/api'
 import { IPokemon } from '../services/api/interfaces'
 
 export default function Home (): JSX.Element {
-  const amountPokemonsInPage = 6
+  const amountPokemonsInPage = 12
   const [pokemonsDetails, setPokemonsDetails] = useState([] as IPokemon[])
   const { fetchPokemon } = usePokemon(amountPokemonsInPage)
   const { currentPage } = usePagination()

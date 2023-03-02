@@ -8,7 +8,7 @@ interface IUsePokemonReturn {
 }
 
 export function usePokemon (pageLimit: number): IUsePokemonReturn {
-  const [pokemon, setPokemon] = useState<IPokemonsLinks>({ count: 0, results: [{ name: '', url: '' }] })
+  const [pokemon, setPokemon] = useState({} as IPokemonsLinks)
 
   async function fetchPokemon (page: number): Promise<IPokemonsLinks> {
     // TODO: COMENTAR ESSA FORMULA
