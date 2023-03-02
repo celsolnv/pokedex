@@ -15,8 +15,6 @@ export function usePokemon (pageLimit: number): IUsePokemonReturn {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const virtualPage = ((page - 1) * pageLimit) ? (page - 1) * pageLimit : 0
 
-    console.log(page, virtualPage)
-
     const pokemons = await getPokemons(pageLimit, virtualPage)
 
     setPokemon(pokemons)
