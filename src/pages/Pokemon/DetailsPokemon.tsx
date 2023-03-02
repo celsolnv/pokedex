@@ -1,22 +1,28 @@
 import './style.css'
 import { BiArrowBack } from 'react-icons/bi'
-// import { MdFavoriteBorder, MdFavorite } from 'react-icons/md'
-import { MdFavorite } from 'react-icons/md'
+import { MdFavoriteBorder, MdFavorite } from 'react-icons/md'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import pokemonContext from '../../context/PokemonContext'
 import { getPokemonDetailsByName } from '../../services/api'
 import { Tab } from '../../components/Tab'
+import { useLocalStorage } from '../../hook/useLocalStorage'
 
 export default function DetailsPokemon (): JSX.Element {
   const { pokemonDetails, setPokemonDetails } = useContext(pokemonContext)
   const { name: namePokemon } = useParams()
+  const [isFavorite, setIsFavorite] = useState(false)
+  const [pokemonsFavorites, setPokemonsFavorites] = useLocalStorage('pokemons_favorite', [])
   const navigate = useNavigate()
 
   useEffect(() => {
     if (Object.keys(pokemonDetails).length === 0) {
       getPokemonDetailsByName(String(namePokemon)).then(response => {
         setPokemonDetails(response)
+        const checkPokemonFavorite = pokemonsFavorites.find(pokemonName => pokemonName === response.name)
+        if (checkPokemonFavorite) {
+          setIsFavorite(true)
+        }
       }).catch(() => { console.log('Error') })
     }
   }, [])
@@ -24,13 +30,33 @@ export default function DetailsPokemon (): JSX.Element {
   if (Object.keys(pokemonDetails).length === 0) {
     return <p>Carregando...</p>
   }
+
+  function handleSwitchFavorite (): void {
+    setIsFavorite(!isFavorite)
+    if (!isFavorite) {
+      const newPokemonsFavorites = pokemonsFavorites
+      console.log('Adicionando...')
+      newPokemonsFavorites.push(pokemonDetails.name)
+      setPokemonsFavorites(newPokemonsFavorites)
+    } else {
+      const newPokemonsFavorites = pokemonsFavorites.filter(pokemonName => pokemonName !== pokemonDetails.name)
+      console.log(newPokemonsFavorites)
+
+      setPokemonsFavorites(newPokemonsFavorites)
+    }
+  }
+
   return (
     <div className="container">
       <div className='p-4'>
 
         <nav className='flex items-center justify-between flex-wrap mb-3 mt-4'>
           <BiArrowBack size={24} onClick={() => { navigate(-1) }} />
-          <MdFavorite size={24} />
+          {
+            isFavorite
+              ? <MdFavorite size={24} onClick={handleSwitchFavorite} />
+              : <MdFavoriteBorder size={24} onClick={handleSwitchFavorite} />
+          }
         </nav>
 
         <div className="flex justify-between items-center ">
