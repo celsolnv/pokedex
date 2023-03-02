@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { IPokemon, IPokemonCharacter, IPokemonPrevious, IPokemonsLinks } from './interfaces'
+import { IPokemon, IPokemonPrevious, IPokemonsLinks } from './interfaces'
 const api = axios.create({
   baseURL: 'https://pokeapi.co/api/v2'
 })
@@ -11,18 +11,23 @@ export async function getPokemons (limit = 50, offset = 0): Promise<IPokemonsLin
 export async function getPokemonDetails (pokemonList: IPokemonPrevious[]): Promise<IPokemon[]> {
   const pokemonsPromise = pokemonList.map(async (pokemon) => {
     const pokemonCharacter = await axios.get(pokemon.url)
-    const infoPokemon: IPokemonCharacter = pokemonCharacter.data
+    const infoPokemon = pokemonCharacter.data
     const pokemonFormate = {
-      name: infoPokemon.name,
-      number: infoPokemon.id,
-      image: infoPokemon.sprites.other.dream_world.front_default,
-      weight: infoPokemon.weight,
-      height: infoPokemon.height,
-      baseExp: infoPokemon.base_experience,
-      types: infoPokemon.types
+      ...infoPokemon,
+      image: infoPokemon.sprites.other.dream_world.front_default
     }
     return pokemonFormate
   })
 
   return await Promise.all(pokemonsPromise)
+}
+
+export async function getPokemonDetailsByName (name: string): Promise<IPokemon> {
+  const infoPokemon = await api.get(`/pokemon/${name}`)
+  const pokemonFormate = {
+    ...infoPokemon.data,
+    image: infoPokemon.data.sprites.other.dream_world.front_default
+  }
+
+  return pokemonFormate
 }

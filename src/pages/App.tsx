@@ -9,7 +9,7 @@ export default function App (): JSX.Element {
       <PokemonContextProvider>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/pokemon' element={<Pokemon />} />
+          <Route path='/pokemon/:name' element={<Pokemon />} />
         </Routes>
       </PokemonContextProvider>
     </BrowserRouter>

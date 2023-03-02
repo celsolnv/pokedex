@@ -19,7 +19,7 @@ export function PokemonCard ({ pokemon }: IPokemonCardProps): JSX.Element {
 
   function redirectPage (): void {
     setPokemonDetails(pokemon)
-    navigate('/pokemon')
+    navigate(`/pokemon/${pokemon.name}`)
   }
 
   return (

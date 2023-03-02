@@ -5,7 +5,3 @@
   color: white;
 }
 
-.tab-index-pokemon{
-  @apply inline-block p-2 pt-4 rounded-t-lg dark:text-blue-500 dark:border-blue-500;
-
-}

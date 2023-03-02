@@ -26,8 +26,8 @@ export interface IPokemonCharacter {
     url: string
   }
   types: [
-    slot:number,
-    type:{
+    slot: number,
+    type: {
       name: string
       url: string
     }
@@ -42,10 +42,30 @@ export interface IPokemon {
   height: number
   baseExp: number
   types: [
-    { slot: number
+    {
+      slot: number
       type: {
         name: string
         url: string
-      } }
+      }
+    }
+  ]
+  abilities: [
+    {
+      ability: {
+        name: string
+        url: string
+      }
+      slot: number
+    }
+  ]
+  stats: [
+    {
+      base_stat: number
+      stat: {
+        name: string
+        url: string
+      }
+    }
   ]
 }
