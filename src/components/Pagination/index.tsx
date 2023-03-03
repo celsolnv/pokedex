@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { usePagination } from '../../hook/usePagination'
-import { usePokemon } from '../../hook/usePokemon'
+import { usePagination } from '@/hook/usePagination'
+import { usePokemon } from '@/hook/usePokemon'
 import './style.css'
 
 interface IPaginationParams {
@@ -24,7 +24,7 @@ export function Pagination ({ amountPages, pageLimit }: IPaginationParams): JSX.
         // Array(amountPages).fill('').map((item, index) =>
         Array(5).fill('').map((item, index) =>
           <li key={index} onClick={() => { setCurrentPage(index + 1) }}>
-            <a href="" className="number">{index + 1}</a>
+            <a className="number">{index + 1}</a>
           </li>
 
         )}

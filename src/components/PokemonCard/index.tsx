@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import pokemonContext from '../../context/PokemonContext'
-import { IPokemon } from '../../services/api/interfaces'
+import pokemonContext from '@/context/PokemonContext'
+import { IPokemon } from '@/services/api/interfaces'
+import { chooseBackgroundByTypePokemon } from '@/utils'
 import { Pokeball } from './Pokeball'
 import './style.css'
-import { chooseBackgroundByTypePokemon } from '../../utils'
 interface IPokemonCardProps {
   pokemon: IPokemon
 }

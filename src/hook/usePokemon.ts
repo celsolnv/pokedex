@@ -1,6 +1,6 @@
-import { IPokemon, IPokemonsLinks } from './../services/api/interfaces'
 import { useState } from 'react'
-import { getPokemonDetails, getPokemons } from '../services/api'
+import { IPokemon, IPokemonsLinks } from '@/services/api/interfaces'
+import { getPokemonDetails, getPokemons } from '@/services/api'
 
 interface IUsePokemonReturn {
   fetchPokemon: (page: number) => Promise<IFetchPokemonReturn>
@@ -15,9 +15,9 @@ export function usePokemon (pageLimit: number): IUsePokemonReturn {
   const [pokemon, setPokemon] = useState({} as IPokemonsLinks)
 
   async function fetchPokemon (page: number): Promise<IFetchPokemonReturn> {
-    // TODO: COMENTAR ESSA FORMULA
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    const virtualPage = ((page - 1) * pageLimit) ? (page - 1) * pageLimit : 0
+    // Formula para encontrar o offset
+    const virtualPage = ((page - 1) * pageLimit)
+    // const virtualPage = ((page - 1) * pageLimit) ? (page - 1) * pageLimit : 0
 
     const pokemonsResponse = await getPokemons(pageLimit, virtualPage)
 

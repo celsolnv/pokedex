@@ -1,5 +1,5 @@
 import { createContext, Dispatch, SetStateAction, useState } from 'react'
-import { IPokemon } from '../services/api/interfaces'
+import { IPokemon } from '@/services/api/interfaces'
 
 interface IPokemonContextProviderParams {
   children: JSX.Element

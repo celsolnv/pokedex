@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { useState } from 'react'
-import { IPokemon } from '../../services/api/interfaces'
+import { IPokemon } from '@/services/api/interfaces'
 
 import './style.css'
 
@@ -35,7 +35,7 @@ export function Tab ({ pokemon }: ITabParams): JSX.Element {
       <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
         <ul className="flex flex-wrap -mb-px" >
           <li className="mr-1" onClick={() => { setTabActive('about') }}>
-            <a href="#"
+            <a
               className={`tab-index-pokemon 
               ${tabActive === 'about' && 'tab-index-pokemon-active'} `} >About</a>
           </li>
@@ -45,12 +45,12 @@ export function Tab ({ pokemon }: ITabParams): JSX.Element {
               ${tabActive === 'base_stats' && 'tab-index-pokemon-active'} `} >Base Stats</a>
           </li>
           <li className="mr-1" onClick={() => { setTabActive('evolution') }}>
-            <a href="#"
+            <a
               className={`tab-index-pokemon 
               ${tabActive === 'evolution' && 'tab-index-pokemon-active'} `} >Evolution</a>
           </li>
           <li className="mr-1" onClick={() => { setTabActive('moves') }}>
-            <a href="#"
+            <a
               className={`tab-index-pokemon 
               ${tabActive === 'moves' && 'tab-index-pokemon-active'} `} >Moves</a>
           </li>
@@ -75,6 +75,7 @@ interface ITabAboutContentParams {
     }
   ]
 }
+
 const TabAboutContent = ({ height, weight, abilities }: ITabAboutContentParams): JSX.Element => {
   return (
 
@@ -100,16 +101,19 @@ const TabAboutContent = ({ height, weight, abilities }: ITabAboutContentParams):
     </div>
   )
 }
+
 const TabBaseStatsContent = (): JSX.Element => {
   return (
     <p>Em breve Base Stats</p>
   )
 }
+
 const TabEvolutionContent = (): JSX.Element => {
   return (
     <p>Em breve Evolution...</p>
   )
 }
+
 const TabMovesContent = (): JSX.Element => {
   return (
     <p>Em breve Moves...</p>
