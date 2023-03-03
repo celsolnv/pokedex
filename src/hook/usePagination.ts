@@ -10,15 +10,12 @@ interface IUsePaginationReturn {
 export function usePagination (): IUsePaginationReturn {
   const location = useLocation()
   const navigate = useNavigate()
-  // const location = history.
 
   const [currentPage, setCurrentPage] = useState(
     getCurrentPage()
   )
 
   useEffect(() => {
-    // const params = qs.parse(location.search)
-
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     navigate({ search: createSearchParams({ page: String(currentPage) }).toString() })
   }, [currentPage])

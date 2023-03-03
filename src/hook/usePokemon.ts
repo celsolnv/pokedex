@@ -14,10 +14,11 @@ interface IFetchPokemonReturn {
 export function usePokemon (pageLimit: number): IUsePokemonReturn {
   const [pokemon, setPokemon] = useState({} as IPokemonsLinks)
 
-  async function fetchPokemon (page: number): Promise<IFetchPokemonReturn> {
+  async function fetchPokemon (page = 2): Promise<IFetchPokemonReturn> {
     // Formula para encontrar o offset
-    const virtualPage = ((page - 1) * pageLimit)
-    // const virtualPage = ((page - 1) * pageLimit) ? (page - 1) * pageLimit : 0
+    // const virtualPage = ((page - 1) * pageLimit)
+    console.log('Fetch Pokemon', page)
+    const virtualPage = ((page - 1) * pageLimit) ? (page - 1) * pageLimit : 0
 
     const pokemonsResponse = await getPokemons(pageLimit, virtualPage)
 

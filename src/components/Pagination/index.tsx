@@ -1,16 +1,17 @@
-import { useEffect } from 'react'
-import { usePagination } from '@/hook/usePagination'
+import { Dispatch, SetStateAction, useEffect } from 'react'
 import { usePokemon } from '@/hook/usePokemon'
 import './style.css'
 
 interface IPaginationParams {
   amountPages: number
   pageLimit: number
+  currentPage: number
+  setCurrentPage: Dispatch<SetStateAction<number>>
+
 }
 
-export function Pagination ({ amountPages, pageLimit }: IPaginationParams): JSX.Element {
+export function Pagination ({ amountPages, pageLimit, currentPage, setCurrentPage }: IPaginationParams): JSX.Element {
   // const [] = usePokemon()
-  const { currentPage, setCurrentPage } = usePagination()
   const { fetchPokemon } = usePokemon(pageLimit)
   useEffect(() => {
     void fetchPokemon(currentPage)

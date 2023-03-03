@@ -9,22 +9,22 @@ export function Home (): JSX.Element {
   const amountPokemonsInPage = 12
   const [pokemonsDetails, setPokemonsDetails] = useState([] as IPokemon[])
   const { fetchPokemon } = usePokemon(amountPokemonsInPage)
-  const { currentPage } = usePagination()
+  const { currentPage, setCurrentPage } = usePagination()
   const [amountPages, setAmountPages] = useState(0)
-  const pokemonQuery = useQuery(['pokemon', currentPage],
-    async () => { return await fetchPokemon(currentPage) },
-    { staleTime: 2000 * 60 }) // 2 minute
+  const pokemonQuery = useQuery(['pokemon', currentPage], async () => { return await fetchPokemon(currentPage) }) // 2 minute
 
   useEffect(() => {
+    console.log('Algo alterado', currentPage, pokemonQuery.status, pokemonQuery.data?.pokemons.results[0].name)
+
     if (pokemonQuery.isSuccess) {
       const pokemonsResponse = pokemonQuery.data.pokemons
       const pokemonsDetailsResponse = pokemonQuery.data.pokemonDetails
       setAmountPages(Math.round(pokemonsResponse.count / amountPokemonsInPage))
       setPokemonsDetails(pokemonsDetailsResponse)
     }
-  }, [pokemonQuery.status])
+  }, [pokemonQuery])
 
-  if (pokemonsDetails.length < 0) {
+  if (pokemonsDetails.length === 0) {
     return <h2>Carregando...</h2>
   }
 
@@ -32,11 +32,11 @@ export function Home (): JSX.Element {
     <div>
       <Header />
       <div className="flex justify-center flex-wrap ">
-        {pokemonsDetails.map(pokemon => (
-          <PokemonCard key={pokemon.number} pokemon={pokemon} />
+        {pokemonsDetails.map((pokemon, index) => (
+          <PokemonCard key={index} pokemon={pokemon} />
         ))}
       </div>
-      <Pagination amountPages={amountPages} pageLimit={amountPokemonsInPage} />
+      <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} amountPages={amountPages} pageLimit={amountPokemonsInPage} />
 
     </div>
   )
