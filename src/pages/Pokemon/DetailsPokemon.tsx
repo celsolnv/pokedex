@@ -51,12 +51,12 @@ export function DetailsPokemon (): JSX.Element {
     <div className="text-white" style={{ backgroundColor }}>
       <div className='p-4'>
 
-        <nav className='flex items-center justify-between flex-wrap mb-3 mt-4'>
-          <BiArrowBack size={24} onClick={() => { navigate(-1) }} />
+        <nav className='flex items-center justify-between flex-wrap mb-3 mt-4 pr-4'>
+          <BiArrowBack className='cursor-pointer md:w-[40px] md:h-[40px]' size={24} onClick={() => { navigate(-1) }} />
           {
             isFavorite
-              ? <MdFavorite size={24} onClick={handleSwitchFavorite} />
-              : <MdFavoriteBorder size={24} onClick={handleSwitchFavorite} />
+              ? <MdFavorite size={24} className='cursor-pointer md:w-[40px] md:h-[40px]' onClick={handleSwitchFavorite} />
+              : <MdFavoriteBorder size={24} className='cursor-pointer md:w-[40px] md:h-[40px]' onClick={handleSwitchFavorite} />
           }
         </nav>
 

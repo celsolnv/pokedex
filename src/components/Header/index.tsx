@@ -1,13 +1,23 @@
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { MdFavorite } from 'react-icons/md'
+import { BiArrowBack } from 'react-icons/bi'
 
 export function Header (): JSX.Element {
   const navigate = useNavigate()
+  const location = useLocation()
+
   return (
     <header
       className="bg-red-700 mx-auto flex items-center justify-center p-4 lg:px-8 relative">
+      {
+        location.pathname !== '/' && <BiArrowBack className='text-white cursor-pointer md:w-[40px] md:h-[40px]' size={24} onClick={() => { navigate(-1) }}/>
+
+      }
       <img onClick={() => { navigate('/') }} className='m-auto absolute' src='assets/images/logo-pokedex.png' alt="logo do pokemon" />
-      <MdFavorite color='#FA8072' onClick={() => { navigate('/favorites') }} className='ml-auto' size={40}/>
+      <div className='ml-auto flex flex-col items-center cursor-pointer hover:scale-150' onClick={() => { navigate('/favorites') }}>
+        <span>Favoritos</span>
+        <MdFavorite color='#FA8072' size={40}/>
+      </div>
     </header>
   )
 }

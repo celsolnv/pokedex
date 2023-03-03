@@ -10,6 +10,7 @@ interface IPaginationParams {
 }
 
 export function Pagination ({ amountPages, currentPage, setCurrentPage }: IPaginationParams): JSX.Element {
+  const amountPagesItem = 8
   return (
     <nav aria-label="Page navigation example" className='footer'>
       <ul className="inline-flex items-center -space-x-px">
@@ -20,7 +21,7 @@ export function Pagination ({ amountPages, currentPage, setCurrentPage }: IPagin
         </li>
 
         {
-          currentPage > 10 &&
+          currentPage >= 4 &&
           <>
             <ListItem currentPage={currentPage} pageIndex={1} onClick={() => { setCurrentPage(1) }} />
             <Ellipsis />
@@ -28,21 +29,38 @@ export function Pagination ({ amountPages, currentPage, setCurrentPage }: IPagin
         }
 
         {
-          Array(8).fill('').map((item, index) =>
-            <ListItem
-              key={index}
-              currentPage={currentPage}
-              pageIndex={index + currentPage}
-              onClick={() => { setCurrentPage(currentPage + index) }}
-            />
+          Array(amountPagesItem).fill('').map((item, index) => {
+            let pageIndex = index + currentPage
+            if (pageIndex + amountPagesItem <= amountPages) {
+              return (<ListItem
+                key={index}
+                currentPage={currentPage}
+                pageIndex={pageIndex}
+                onClick={() => { setCurrentPage(pageIndex) }}
+              />)
+            } else {
+              pageIndex = amountPages - (amountPagesItem - index) + 1
+              return (<ListItem
+                key={index}
+                currentPage={currentPage}
+                pageIndex={pageIndex}
+                onClick={() => { setCurrentPage(pageIndex) }}
+              />)
+            }
+          }
 
           )}
 
-        <Ellipsis />
-        <li onClick={() => { setCurrentPage(amountPages) }}>
+        {
+          currentPage < (amountPages - amountPagesItem) &&
+          <>
+            <Ellipsis />
+            <li onClick={() => { setCurrentPage(amountPages) }}>
               <a
                 className="number">{amountPages}</a>
-        </li>
+            </li>
+          </>
+        }
 
         <li onClick={() => { setCurrentPage(currentPage + 1) }}>
           <a className="rounded-r-lg next-pagination">
