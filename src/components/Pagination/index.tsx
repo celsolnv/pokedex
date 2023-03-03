@@ -10,7 +10,7 @@ interface IPaginationParams {
 }
 
 export function Pagination ({ amountPages, currentPage, setCurrentPage }: IPaginationParams): JSX.Element {
-  const amountPagesItem = 8
+  const amountPagesItem = 5
   return (
     <nav aria-label="Page navigation example" className='footer'>
       <ul className="inline-flex items-center -space-x-px">
@@ -76,7 +76,7 @@ export function Pagination ({ amountPages, currentPage, setCurrentPage }: IPagin
 
 const Ellipsis = (): JSX.Element => (
   <li className='pointer-events-none'>
-    <a className="number"> ... </a>
+    <a className="number px-1"> ... </a>
   </li>
 )
 
