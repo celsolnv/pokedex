@@ -58,17 +58,14 @@ export interface IPokemon extends IPokemonCharacter {
     }
   ]
   moves: [
-{  
-  move:  {
-      name: string,
-      url: string
-    }}
+    {
+      move: {
+        name: string
+        url: string
+      } }
   ]
 }
 
 interface Testa extends IPokemon {
 
 }
-
-const t:Testa;
-t.

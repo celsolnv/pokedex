@@ -1,6 +1,7 @@
-interface IListItem {
+interface IListItem extends React.HTMLAttributes<Element> {
   currentPage: number
   pageIndex: number
+
 }
 export const ListItem = ({ currentPage, pageIndex, ...props }: IListItem): JSX.Element => (
   <li {...props}>
