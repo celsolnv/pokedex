@@ -1,22 +1,22 @@
+import { useContext, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useQuery } from 'react-query'
 import { BiArrowBack } from 'react-icons/bi'
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useContext, useEffect, useState } from 'react'
-import pokemonContext from '../../context/PokemonContext'
-import { getPokemonDetailsByName } from '../../services/api'
-import { Tab } from '../../components/Tab'
-import { useLocalStorage } from '../../hook/useLocalStorage'
-import { useQuery } from 'react-query'
-import './style.css'
-import { chooseBackgroundByTypePokemon } from '../../utils'
 
-export default function DetailsPokemon (): JSX.Element {
+import pokemonContext from '@/context/PokemonContext'
+import { getPokemonDetailsByName } from '@/services/api'
+import { Tab } from '@/components/Tab'
+import { useLocalStorage } from '@/hook/useLocalStorage'
+import { chooseBackgroundByTypePokemon } from '@/utils'
+
+export function DetailsPokemon (): JSX.Element {
   const { pokemonDetails, setPokemonDetails } = useContext(pokemonContext)
   const { name: namePokemon } = useParams()
   const [isFavorite, setIsFavorite] = useState(false)
   const [pokemonsFavorites, setPokemonsFavorites] = useLocalStorage('pokemons_favorite', [])
-  const navigate = useNavigate()
   const pokemonQuery = useQuery(['pokemon', namePokemon], async () => await getPokemonDetailsByName(String(namePokemon)))
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (pokemonQuery.isSuccess && Object.keys(pokemonDetails)) {

@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Header } from '../../components/Header'
-import { PokemonCard } from '../../components/PokemonCard'
-import { useLocalStorage } from '../../hook/useLocalStorage'
-import { getPokemonDetailsByName } from '../../services/api'
-import { IPokemon } from '../../services/api/interfaces'
+import { Header, PokemonCard } from '@/components'
+import { useLocalStorage } from '@/hook/useLocalStorage'
+import { getPokemonDetailsByName } from '@/services/api'
+import { IPokemon } from '@/services/api/interfaces'
 
-export default function PokemonFavorite (): JSX.Element {
+export function PokemonFavorite (): JSX.Element {
   const [pokemonStorage] = useLocalStorage('pokemons_favorite', [])
   const [pokemonsDetails, setPokemonsDetails] = useState([] as IPokemon[])
 
@@ -14,14 +13,10 @@ export default function PokemonFavorite (): JSX.Element {
   }, [])
 
   async function getPokemons (): Promise<void> {
-    console.log('Buscando pokemons')
-    console.log(pokemonStorage)
-
-    const pokemonsDetailsPromise = pokemonStorage.map(async (pokemonName) => {
+    const pokemonsDetailsPromise = pokemonStorage.map(async (pokemonName: string) => {
       return await getPokemonDetailsByName(pokemonName)
     })
     const pokemonsDetailsResponse = await Promise.all(pokemonsDetailsPromise)
-    console.log(pokemonsDetailsResponse)
 
     setPokemonsDetails(pokemonsDetailsResponse)
   }
@@ -37,7 +32,6 @@ export default function PokemonFavorite (): JSX.Element {
       </div>
           : <h2> Você não tem nenhum pokemon favorito</h2>
       }
-
     </div>
   </>
 }
