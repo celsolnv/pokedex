@@ -1,22 +1,15 @@
-import { Dispatch, SetStateAction, useEffect } from 'react'
-import { usePokemon } from '@/hook/usePokemon'
+import { Dispatch, SetStateAction } from 'react'
+import { ListItem } from './ListItem'
 import './style.css'
 
 interface IPaginationParams {
-  amountPages: number
-  pageLimit: number
   currentPage: number
   setCurrentPage: Dispatch<SetStateAction<number>>
+  amountPages: number
 
 }
 
-export function Pagination ({ amountPages, pageLimit, currentPage, setCurrentPage }: IPaginationParams): JSX.Element {
-  // const [] = usePokemon()
-  const { fetchPokemon } = usePokemon(pageLimit)
-  useEffect(() => {
-    void fetchPokemon(currentPage)
-  }, [currentPage])
-
+export function Pagination ({ amountPages, currentPage, setCurrentPage }: IPaginationParams): JSX.Element {
   return (
     <nav aria-label="Page navigation example" className='footer'>
       <ul className="inline-flex items-center -space-x-px">
@@ -27,24 +20,47 @@ export function Pagination ({ amountPages, pageLimit, currentPage, setCurrentPag
         </li>
 
         {
-          // Array(amountPages).fill('').map((item, index) =>
-          Array(5).fill('').map((item, index) =>
-            <li key={index} onClick={() => { setCurrentPage(currentPage + index) }}>
-              <a
-                className={`number ${(currentPage + index) === currentPage && 'number-active'}`}>{currentPage + index}</a>
-            </li>
+          currentPage > 10 &&
+          <>
+            <ListItem currentPage={currentPage} pageIndex={1} onClick={() => { setCurrentPage(1) }} />
+            <Ellipsis />
+          </>
+        }
+
+        {
+          Array(8).fill('').map((item, index) =>
+            <ListItem
+              key={index}
+              currentPage={currentPage}
+              pageIndex={index + currentPage}
+              onClick={() => { setCurrentPage(currentPage + index) }}
+            />
 
           )}
+
+        <Ellipsis />
+        <li onClick={() => { setCurrentPage(amountPages) }}>
+              <a
+                className="number">{amountPages}</a>
+        </li>
+
         <li onClick={() => { setCurrentPage(currentPage + 1) }}>
           <a className="rounded-r-lg next-pagination">
             <NextContent />
           </a>
         </li>
+
       </ul>
 
     </nav>
   )
 }
+
+const Ellipsis = (): JSX.Element => (
+  <li className='pointer-events-none'>
+    <a className="number"> ... </a>
+  </li>
+)
 
 const PreviousContent = (): JSX.Element => (
   <>
