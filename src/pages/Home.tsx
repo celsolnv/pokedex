@@ -11,11 +11,10 @@ export function Home (): JSX.Element {
   const { fetchPokemon } = usePokemon(amountPokemonsInPage)
   const { currentPage, setCurrentPage } = usePagination()
   const [amountPages, setAmountPages] = useState(0)
-  const pokemonQuery = useQuery(['pokemon', currentPage], async () => { return await fetchPokemon(currentPage) }) // 2 minute
+  const pokemonQuery = useQuery(['pokemon', currentPage], async () => { return await fetchPokemon(currentPage) },
+    { staleTime: 1000 * 60 * 2 }) // 2 minute
 
   useEffect(() => {
-    console.log('Algo alterado', currentPage, pokemonQuery.status, pokemonQuery.data?.pokemons.results[0].name)
-
     if (pokemonQuery.isSuccess) {
       const pokemonsResponse = pokemonQuery.data.pokemons
       const pokemonsDetailsResponse = pokemonQuery.data.pokemonDetails

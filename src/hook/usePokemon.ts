@@ -16,9 +16,11 @@ export function usePokemon (pageLimit: number): IUsePokemonReturn {
 
   async function fetchPokemon (page = 2): Promise<IFetchPokemonReturn> {
     // Formula para encontrar o offset
-    // const virtualPage = ((page - 1) * pageLimit)
-    console.log('Fetch Pokemon', page)
-    const virtualPage = ((page - 1) * pageLimit) ? (page - 1) * pageLimit : 0
+    let virtualPage = ((page - 1) * pageLimit)
+    // const virtualPage = ((page - 1) * pageLimit) ? (page - 1) * pageLimit : 0
+    if (virtualPage < 0) {
+      virtualPage = 0
+    }
 
     const pokemonsResponse = await getPokemons(pageLimit, virtualPage)
 
