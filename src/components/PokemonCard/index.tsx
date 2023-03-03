@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import pokemonContext from '../../context/PokemonContext'
 import { IPokemon } from '../../services/api/interfaces'
+import { Pokeball } from './Pokeball'
 import './style.css'
 import { themeTypePokemon } from './theme'
 interface IPokemonCardProps {
@@ -23,7 +24,7 @@ export function PokemonCard ({ pokemon }: IPokemonCardProps): JSX.Element {
   }
 
   return (
-    <div className='card-container'
+    <div className='md:w-[270px] md:h-[200px] md:m-[10px] card-container '
       style={{ backgroundColor }}
       onClick={redirectPage}
       >
@@ -49,12 +50,8 @@ export function PokemonCard ({ pokemon }: IPokemonCardProps): JSX.Element {
         </div>
 
         <div className='image-container'>
-          <svg className="pokeball" viewBox="0 0 532 512" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="266" cy="256" rx="266" ry="256" fill={backgroundColor} />
-            <circle cx="148" cy="251" r="103" fill={backgroundColor} />
-            <rect y="230" width="532" height="52" fill={backgroundColor} />
-          </svg>
-          <img className="image-pokemon" src={pokemon.image} alt="" />
+          <Pokeball backgroundColor={backgroundColor} />
+          <img className="md:w-[160px]  z-10 w-[80px]" src={pokemon.image} alt="" />
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 .card-container{
-  @apply flex flex-col ; 
+  @apply flex flex-col cursor-pointer; 
   @apply bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700;
 
   width: 170px;
@@ -12,6 +12,9 @@
   color:#fff; 
   position: relative;
 
+}
+.card-container:hover{
+  transform: scale(1.1);
 }
 .card-info{
   @apply flex flex-row;
@@ -52,7 +55,7 @@
   bottom: 0;
   right: 0;
   width: 90px;
-  height: 90px;
+
 }
 
 .pokeball ellipse{
