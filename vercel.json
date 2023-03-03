@@ -1,8 +1,9 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/pokemon/:name",
-      "destination": "/pokemon"
+      "src": "/[^.]+",
+      "dest": "/",
+      "status": 200
     }
   ]
 }
