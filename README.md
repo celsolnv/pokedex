@@ -8,6 +8,7 @@
 <img src="https://github.com/celsolnv/images/blob/main/pokedex/home.png?raw=true" alt="Tela com a listagem de diversos pokemons">
 
 > O objetivo do projeto é aperfeiçoar o seu conhecimento sobre pokemons mostrando diversas informações sobre estes.
+[Acesse aqui](https://pokedex-qjla.vercel.app/?page=1)
 
 ### Funcionalidades e melhorias
 
