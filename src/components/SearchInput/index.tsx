@@ -10,7 +10,7 @@ interface ISearchInputParams {
 export function SearchInput ({ searchValue, setSearchValue, handleSearch }: ISearchInputParams): JSX.Element {
   return (
 
-    <form className="flex items-center">
+    <form className="flex items-center my-5 max-w-sm mx-auto">
       <label htmlFor="simple-search" className="sr-only">Search</label>
       <div className="relative w-full">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">

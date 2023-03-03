@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { Header, Pagination, PokemonCard, Loading, SearchInput } from '@/components'
 import { usePagination } from '@/hook/usePagination'
@@ -31,12 +31,13 @@ export function Home (): JSX.Element {
     }
   }, [pokemonQuery.dataUpdatedAt])
 
-  async function handleSearch (): Promise<void> {
+  async function handleSearch (event: React.FormEvent): Promise<void> {
+    event.preventDefault()
     if (allPokemonsQuery.isSuccess && pokemonNameSearch.length >= 3) {
       const allPokemons = allPokemonsQuery.data.results
       console.log(allPokemonsQuery)
       console.log(pokemonNameSearch)
-      const pokemonFilter = allPokemons.filter(({ name }) => name.includes(pokemonNameSearch))
+      const pokemonFilter = allPokemons.filter(({ name }) => name.includes(pokemonNameSearch.toLowerCase()))
       console.log(pokemonFilter)
       if (pokemonFilter.length > 0) {
         const pokemonDetailFilter = await getPokemonDetails(pokemonFilter)
