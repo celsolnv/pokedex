@@ -8,6 +8,10 @@ export async function getPokemons (limit = 50, offset = 0): Promise<IPokemonsLin
   const pokemons = await api.get(`/pokemon?limit=${limit}&offset=${offset}`)
   return pokemons.data
 }
+export async function getAllPokemons (): Promise<IPokemonsLinks> {
+  const pokemons = await api.get('/pokemon?limit=100000&offset=0')
+  return pokemons.data
+}
 export async function getPokemonDetails (pokemonList: IPokemonPrevious[]): Promise<IPokemon[]> {
   const pokemonsPromise = pokemonList.map(async (pokemon) => {
     const pokemonCharacter = await axios.get(pokemon.url)
