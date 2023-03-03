@@ -10,6 +10,7 @@ export function Home (): JSX.Element {
   const amountPokemonsInPage = 12
   const [pokemonsDetails, setPokemonsDetails] = useState([] as IPokemon[])
   const [pokemonNameSearch, setPokemonNameSearch] = useState('')
+  const [isSearch, setIsSearch] = useState(false)
   const { fetchPokemon } = usePokemon(amountPokemonsInPage)
   const { currentPage, setCurrentPage } = usePagination()
   const [amountPages, setAmountPages] = useState(0)
@@ -33,12 +34,10 @@ export function Home (): JSX.Element {
 
   async function handleSearch (event: React.FormEvent): Promise<void> {
     event.preventDefault()
+    setIsSearch(true)
     if (allPokemonsQuery.isSuccess && pokemonNameSearch.length >= 3) {
       const allPokemons = allPokemonsQuery.data.results
-      console.log(allPokemonsQuery)
-      console.log(pokemonNameSearch)
       const pokemonFilter = allPokemons.filter(({ name }) => name.includes(pokemonNameSearch.toLowerCase()))
-      console.log(pokemonFilter)
       if (pokemonFilter.length > 0) {
         const pokemonDetailFilter = await getPokemonDetails(pokemonFilter)
         setPokemonsDetails(pokemonDetailFilter)
@@ -47,7 +46,7 @@ export function Home (): JSX.Element {
   }
   return (
     <div>
-      <Header />
+      <Header showArrowBack={ isSearch}/>
       <div>
         <SearchInput handleSearch={handleSearch} searchValue={pokemonNameSearch} setSearchValue={setPokemonNameSearch}/>
       </div>
@@ -58,7 +57,11 @@ export function Home (): JSX.Element {
           <PokemonCard key={index} pokemon={pokemon} />
           ))}
       </div>
+      {
+        !isSearch &&
       <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} amountPages={amountPages} />
+
+      }
 
     </div>
   )

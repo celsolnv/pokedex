@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import { IPokemon } from '@/services/api/interfaces'
 
 import './style.css'
@@ -12,7 +11,7 @@ interface ITabParams {
 }
 
 export function Tab ({ pokemon }: ITabParams): JSX.Element {
-  const [tabActive, setTabActive] = useState<ITabActive>('base_stats')
+  const [tabActive, setTabActive] = useState<ITabActive>('about')
 
   function chooseContent (): JSX.Element {
     if (tabActive === 'about') {
@@ -114,6 +113,7 @@ const TabBaseStatsContent = ({ pokemon }: { pokemon: IPokemon }): JSX.Element =>
     </div>
   )
 }
+
 const TabMovesContent = ({ pokemon }: { pokemon: IPokemon }): JSX.Element => {
   return (
     <div>

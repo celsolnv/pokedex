@@ -26,8 +26,8 @@ export function SearchInput ({ searchValue, setSearchValue, handleSearch }: ISea
           onChange={(event) => { setSearchValue(event.target.value) }}
           onKeyDown={(event) => {
             if (event.key === 'Enter') {
-              event.preventDefault()
               handleSearch()
+              // event.preventDefault()
             }
           }}
           />

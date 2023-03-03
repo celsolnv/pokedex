@@ -65,7 +65,3 @@ export interface IPokemon extends IPokemonCharacter {
       } }
   ]
 }
-
-interface Testa extends IPokemon {
-
-}
