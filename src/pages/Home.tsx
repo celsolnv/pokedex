@@ -17,9 +17,6 @@ export default function Home (): JSX.Element {
   const pokemonQuery = useQuery(['pokemon', currentPage], async () => { return await fetchPokemon(currentPage) }, { staleTime: 1000 * 60 })
 
   useEffect(() => {
-    console.log(pokemonQuery.error)
-    console.log(pokemonQuery.status)
-
     if (pokemonQuery.isSuccess) {
       const pokemonsResponse = pokemonQuery.data.pokemons
       const pokemonsDetailsResponse = pokemonQuery.data.pokemonDetails

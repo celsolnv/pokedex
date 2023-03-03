@@ -4,7 +4,7 @@ import pokemonContext from '../../context/PokemonContext'
 import { IPokemon } from '../../services/api/interfaces'
 import { Pokeball } from './Pokeball'
 import './style.css'
-import { themeTypePokemon } from './theme'
+import { chooseBackgroundByTypePokemon } from '../../utils'
 interface IPokemonCardProps {
   pokemon: IPokemon
 }
@@ -13,10 +13,7 @@ export function PokemonCard ({ pokemon }: IPokemonCardProps): JSX.Element {
   const navigate = useNavigate()
   const { setPokemonDetails } = useContext(pokemonContext)
   const typePokemon = pokemon.types[0].type.name
-  let backgroundColor = themeTypePokemon[typePokemon]
-  if (!backgroundColor) {
-    backgroundColor = '#797979'
-  }
+  const backgroundColor = chooseBackgroundByTypePokemon(typePokemon)
 
   function redirectPage (): void {
     setPokemonDetails(pokemon)

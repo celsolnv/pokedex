@@ -8,6 +8,7 @@ import { Tab } from '../../components/Tab'
 import { useLocalStorage } from '../../hook/useLocalStorage'
 import { useQuery } from 'react-query'
 import './style.css'
+import { chooseBackgroundByTypePokemon } from '../../utils'
 
 export default function DetailsPokemon (): JSX.Element {
   const { pokemonDetails, setPokemonDetails } = useContext(pokemonContext)
@@ -18,8 +19,7 @@ export default function DetailsPokemon (): JSX.Element {
   const pokemonQuery = useQuery(['pokemon', namePokemon], async () => await getPokemonDetailsByName(String(namePokemon)))
 
   useEffect(() => {
-    console.log(pokemonQuery.status)
-    if (pokemonQuery.isSuccess) {
+    if (pokemonQuery.isSuccess && Object.keys(pokemonDetails)) {
       const response = pokemonQuery.data
       setPokemonDetails(response)
       const checkPokemonFavorite = pokemonsFavorites.find((pokemonName: string) => pokemonName === response.name)
@@ -29,27 +29,26 @@ export default function DetailsPokemon (): JSX.Element {
     }
   }, [pokemonQuery.status])
 
-  if (pokemonQuery.isLoading) {
-    return <p>Carregando...</p>
-  }
-
   function handleSwitchFavorite (): void {
     setIsFavorite(!isFavorite)
     if (!isFavorite) {
       const newPokemonsFavorites = pokemonsFavorites
-      console.log('Adicionando...')
       newPokemonsFavorites.push(pokemonDetails.name)
       setPokemonsFavorites(newPokemonsFavorites)
     } else {
       const newPokemonsFavorites = pokemonsFavorites.filter((pokemonName: string) => pokemonName !== pokemonDetails.name)
-      console.log(newPokemonsFavorites)
 
       setPokemonsFavorites(newPokemonsFavorites)
     }
   }
 
+  if (Object.keys(pokemonDetails).length === 0) {
+    return <p>Carregando...</p>
+  }
+  const typePokemon = pokemonDetails.types[0].type.name
+  const backgroundColor = chooseBackgroundByTypePokemon(typePokemon)
   return (
-    <div className="container">
+    <div className="text-white" style={{ backgroundColor }}>
       <div className='p-4'>
 
         <nav className='flex items-center justify-between flex-wrap mb-3 mt-4'>
@@ -81,7 +80,7 @@ export default function DetailsPokemon (): JSX.Element {
         </div>
 
         <div className='flex w-full justify-center pt-5'>
-          <div className="w-40">
+          <div className="w-40 md:w-64">
             <img src={pokemonDetails.image} alt="image of pokemon" />
           </div>
         </div>
