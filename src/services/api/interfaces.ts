@@ -25,22 +25,11 @@ export interface IPokemonCharacter {
   species: {
     url: string
   }
-  types: [
-    slot: number,
-    type: {
-      name: string
-      url: string
-    }
-  ]
 }
 
-export interface IPokemon {
-  name: string
+export interface IPokemon extends IPokemonCharacter {
   number: number
   image: string
-  weight: number
-  height: number
-  baseExp: number
   types: [
     {
       slot: number
@@ -68,4 +57,18 @@ export interface IPokemon {
       }
     }
   ]
+  moves: [
+{  
+  move:  {
+      name: string,
+      url: string
+    }}
+  ]
 }
+
+interface Testa extends IPokemon {
+
+}
+
+const t:Testa;
+t.
