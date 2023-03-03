@@ -1,25 +1,31 @@
-import { IPokemonsLinks } from './../services/api/interfaces'
+import { IPokemon, IPokemonsLinks } from './../services/api/interfaces'
 import { useState } from 'react'
-import { getPokemons } from '../services/api'
+import { getPokemonDetails, getPokemons } from '../services/api'
 
 interface IUsePokemonReturn {
-  fetchPokemon: (page: number) => Promise<IPokemonsLinks>
+  fetchPokemon: (page: number) => Promise<IFetchPokemonReturn>
   pokemon: IPokemonsLinks
+}
+interface IFetchPokemonReturn {
+  pokemons: IPokemonsLinks
+  pokemonDetails: IPokemon[]
 }
 
 export function usePokemon (pageLimit: number): IUsePokemonReturn {
   const [pokemon, setPokemon] = useState({} as IPokemonsLinks)
 
-  async function fetchPokemon (page: number): Promise<IPokemonsLinks> {
+  async function fetchPokemon (page: number): Promise<IFetchPokemonReturn> {
     // TODO: COMENTAR ESSA FORMULA
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const virtualPage = ((page - 1) * pageLimit) ? (page - 1) * pageLimit : 0
 
-    const pokemons = await getPokemons(pageLimit, virtualPage)
+    const pokemonsResponse = await getPokemons(pageLimit, virtualPage)
 
-    setPokemon(pokemons)
+    setPokemon(pokemonsResponse)
 
-    return pokemons
+    const pokemonDetails = await getPokemonDetails(pokemonsResponse.results)
+
+    return { pokemons: pokemonsResponse, pokemonDetails }
   }
 
   return {

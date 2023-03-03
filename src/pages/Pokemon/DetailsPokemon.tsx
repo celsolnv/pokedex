@@ -1,4 +1,3 @@
-import './style.css'
 import { BiArrowBack } from 'react-icons/bi'
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -7,6 +6,8 @@ import pokemonContext from '../../context/PokemonContext'
 import { getPokemonDetailsByName } from '../../services/api'
 import { Tab } from '../../components/Tab'
 import { useLocalStorage } from '../../hook/useLocalStorage'
+import { useQuery } from 'react-query'
+import './style.css'
 
 export default function DetailsPokemon (): JSX.Element {
   const { pokemonDetails, setPokemonDetails } = useContext(pokemonContext)
@@ -14,20 +15,21 @@ export default function DetailsPokemon (): JSX.Element {
   const [isFavorite, setIsFavorite] = useState(false)
   const [pokemonsFavorites, setPokemonsFavorites] = useLocalStorage('pokemons_favorite', [])
   const navigate = useNavigate()
+  const pokemonQuery = useQuery(['pokemon', namePokemon], async () => await getPokemonDetailsByName(String(namePokemon)))
 
   useEffect(() => {
-    if (Object.keys(pokemonDetails).length === 0) {
-      getPokemonDetailsByName(String(namePokemon)).then(response => {
-        setPokemonDetails(response)
-        const checkPokemonFavorite = pokemonsFavorites.find(pokemonName => pokemonName === response.name)
-        if (checkPokemonFavorite) {
-          setIsFavorite(true)
-        }
-      }).catch(() => { console.log('Error') })
+    console.log(pokemonQuery.status)
+    if (pokemonQuery.isSuccess) {
+      const response = pokemonQuery.data
+      setPokemonDetails(response)
+      const checkPokemonFavorite = pokemonsFavorites.find((pokemonName: string) => pokemonName === response.name)
+      if (checkPokemonFavorite) {
+        setIsFavorite(true)
+      }
     }
-  }, [])
+  }, [pokemonQuery.status])
 
-  if (Object.keys(pokemonDetails).length === 0) {
+  if (pokemonQuery.isLoading) {
     return <p>Carregando...</p>
   }
 
@@ -39,7 +41,7 @@ export default function DetailsPokemon (): JSX.Element {
       newPokemonsFavorites.push(pokemonDetails.name)
       setPokemonsFavorites(newPokemonsFavorites)
     } else {
-      const newPokemonsFavorites = pokemonsFavorites.filter(pokemonName => pokemonName !== pokemonDetails.name)
+      const newPokemonsFavorites = pokemonsFavorites.filter((pokemonName: string) => pokemonName !== pokemonDetails.name)
       console.log(newPokemonsFavorites)
 
       setPokemonsFavorites(newPokemonsFavorites)
