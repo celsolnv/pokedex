@@ -27,6 +27,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - ⚛️ React
 - TypeScript
 - Axios
+- React-Query
 - Tailwind CSS
 
 ## 💻 Pré-requisitos
