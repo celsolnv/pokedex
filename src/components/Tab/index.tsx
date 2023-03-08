@@ -102,7 +102,7 @@ const TabBaseStatsContent = ({ pokemon }: { pokemon: IPokemon }): JSX.Element =>
           <div key={index} className='grid grid-cols-3 m-3'>
             <p className='capitalize' >{stat.name}</p>
             <p> {stat.value}</p>
-            <div style={{ backgroundColor: '#F6F6F6' }} className='w-full h-2 rounded-lg'>
+            <div style={{ backgroundColor: '#c0c0c0' }} className='w-full h-2 rounded-lg'>
               <div style={{ width: `${stat.value}%`, backgroundColor: '#D17F7F' }} className='h-2 rounded-lg'></div>
             </div>
           </div>
