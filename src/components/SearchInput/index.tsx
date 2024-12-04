@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dispatch, SetStateAction } from 'react';
 import './style.css';
 
 interface ISearchInputParams {
   searchValue: string;
   setSearchValue: Dispatch<SetStateAction<string>>;
-  handleSearch: () => void;
+  handleSearch: any;
 }
 
 export function SearchInput({
