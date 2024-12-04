@@ -1,4 +1,4 @@
-type IThemeTypePokemon = Record<string, string>
+type IThemeTypePokemon = Record<string, string>;
 
 export const themeTypePokemon: IThemeTypePokemon = {
   grass: '#49D0B0',
@@ -12,5 +12,4 @@ export const themeTypePokemon: IThemeTypePokemon = {
   ground: '#eede10',
   fighting: '#F6DEB4',
   fairy: '#FFACAC'
-
-}
+};

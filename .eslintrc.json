@@ -1,28 +1,55 @@
 {
     "env": {
-        "browser": true,
-        "es2021": true
+      "es2021": true,
+      "node": true,
+      "jest": true
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      },
+      "react-native": {
+        "version": "detect"
+      },
+      "import/resolver": {
+        "node": {
+          "paths": ["src"]
+         },
+        "babel-module": {}
+      }
     },
     "extends": [
-        "plugin:react/recommended",
-        "standard-with-typescript"
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:prettier/recommended",
+      "plugin:react/jsx-runtime",
+      "prettier", 
+      "plugin:testing-library/react"
     ],
-    "overrides": [],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module",
-        "project": "./tsconfig.json"
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 11,
+      "sourceType": "module"
     },
-    "plugins": [
-        "react"
-    ],
+    "plugins": ["react", "react-hooks", "@typescript-eslint", "import", "testing-library"],
     "rules": {
-        "react/react-in-jsx-scope": "off",
-        "@typescript-eslint/strict-boolean-expressions": "off",
-        "@typescript-eslint/consistent-type-imports": "off",
-        "@typescript-eslint/consistent-type-assertions": "off",
-        "@typescript-eslint/no-floating-promises": "warn",
-        "@typescript-eslint/no-unused-vars": "warn",
-        "@typescript-eslint/restrict-template-expressions": "off"
-    }
-}
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "off",
+      "react/prop-types": "off",
+      "react/react-in-jsx-scope": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+      "no-use-before-define": ["error", { "variables": false }],
+      "@typescript-eslint/ban-ts-comment": "off",
+      "testing-library/no-debug": "off",
+      "import/no-anonymous-default-export": "off",
+      "testing-library/prefer-screen-queries": "warn"
+    },
+    "ignorePatterns": ["node_modules/", "public/", "*.css"]
+  }

@@ -1,13 +1,16 @@
 interface IListItem extends React.HTMLAttributes<Element> {
-  currentPage: number
-  pageIndex: number
-
+  currentPage: number;
+  pageIndex: number;
 }
 
-export const ListItem = ({ currentPage, pageIndex, ...props }: IListItem): JSX.Element => (
+export const ListItem = ({
+  currentPage,
+  pageIndex,
+  ...props
+}: IListItem): JSX.Element => (
   <li {...props}>
-    <a className={`number ${(pageIndex) === currentPage && 'number-active'}`}>
+    <a className={`number ${pageIndex === currentPage && 'number-active'}`}>
       {pageIndex}
     </a>
-</li>
-)
+  </li>
+);

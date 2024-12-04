@@ -1,8 +1,8 @@
 interface IPokeballParams {
-  backgroundColor: string
+  backgroundColor: string;
 }
 
-export function Pokeball ({ backgroundColor }: IPokeballParams): JSX.Element {
+export function Pokeball({ backgroundColor }: IPokeballParams): JSX.Element {
   return (
     <svg
       className="pokeball md:w-[180px] "
@@ -13,5 +13,5 @@ export function Pokeball ({ backgroundColor }: IPokeballParams): JSX.Element {
       <circle cx="148" cy="251" r="103" fill={backgroundColor} />
       <rect y="230" width="532" height="52" fill={backgroundColor} />
     </svg>
-  )
+  );
 }

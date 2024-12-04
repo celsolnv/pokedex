@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm run test:toPush
+npm run build
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+TARGET_BRANCH="main"
+
+if [ "$BRANCH" = "$TARGET_BRANCH" ]; then
+  echo "Executando comando de pre-push na branch $TARGET_BRANCH"
+    npm run sonar
+  else
+    echo "Pre-push sonar-scanner ignorado para a branch $BRANCH"
+fi
+

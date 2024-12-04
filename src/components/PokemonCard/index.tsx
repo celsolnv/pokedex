@@ -1,57 +1,56 @@
-import { useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
-import pokemonContext from '@/context/PokemonContext'
-import { IPokemon } from '@/services/api/interfaces'
-import { chooseBackgroundByTypePokemon } from '@/utils'
-import { Pokeball } from './Pokeball'
-import './style.css'
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import pokemonContext from '@/context/PokemonContext';
+import { IPokemon } from '@/services/api/interfaces';
+import { chooseBackgroundByTypePokemon } from '@/utils';
+import { Pokeball } from './Pokeball';
+import './style.css';
 interface IPokemonCardProps {
-  pokemon: IPokemon
+  pokemon: IPokemon;
 }
 
-export function PokemonCard ({ pokemon }: IPokemonCardProps): JSX.Element {
-  const navigate = useNavigate()
-  const { setPokemonDetails } = useContext(pokemonContext)
-  const typePokemon = pokemon.types[0].type.name
-  const backgroundColor = chooseBackgroundByTypePokemon(typePokemon)
+export function PokemonCard({ pokemon }: IPokemonCardProps): JSX.Element {
+  const navigate = useNavigate();
+  const { setPokemonDetails } = useContext(pokemonContext);
+  const typePokemon = pokemon.types[0].type.name;
+  const backgroundColor = chooseBackgroundByTypePokemon(typePokemon);
 
-  function redirectPage (): void {
-    setPokemonDetails(pokemon)
-    navigate(`/pokemon/${pokemon.name}`)
+  function redirectPage(): void {
+    setPokemonDetails(pokemon);
+    navigate(`/pokemon/${pokemon.name}`);
   }
 
   return (
-    <div className='md:w-[270px] md:h-[200px] md:m-[10px] card-container '
+    <div
+      className="md:w-[270px] md:h-[200px] md:m-[10px] card-container "
       style={{ backgroundColor }}
       onClick={redirectPage}
-      >
-
-      <div className=''>
-        <p className="font-bold capitalize pb-1 text-lg ">
-            {pokemon.name}
-        </p>
+    >
+      <div className="">
+        <p className="font-bold capitalize pb-1 text-lg ">{pokemon.name}</p>
       </div>
-      <div className="card-info" >
+      <div className="card-info">
         <div className="description">
           <div>
-            {
-              pokemon.types.map((type, index) => (
-                <div key={index}>
-                  <div className=" type-pokemon capitalize text-sm ">
-                    <p >{type.type.name}</p>
-                  </div>
+            {pokemon.types.map((type, index) => (
+              <div key={index}>
+                <div className=" type-pokemon capitalize text-sm ">
+                  <p>{type.type.name}</p>
                 </div>
-              ))
-            }
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className='image-container'>
+        <div className="image-container">
           <Pokeball backgroundColor={backgroundColor} />
-          <img className="md:w-[160px]  z-10 w-[80px]" src={pokemon.image} alt="" />
+          <img
+            className="md:w-[160px]  z-10 w-[80px]"
+            src={pokemon.image}
+            alt=""
+          />
         </div>
       </div>
-
     </div>
-  )
+  );
 }
